@@ -9,13 +9,14 @@ using namespace std;
 const int mf = 500;
 typedef vector<double> Vector;
 
-int main() {
+int main() 
+{
     int i, N;
     double a, lamda, ro, c, h, tau;
     double Tl, T0, Tr, L, t_end, time;
     Vector T(mf + 1), TT(mf + 1);
 
-    // Ввод входных данных
+    // Вводим входных данных
     cout << "Введите количество узлов по пространственной координате, N: ";
     cin >> N;
     cout << "Введите окончание по времени, t_end: ";
@@ -45,7 +46,8 @@ int main() {
     tau = 0.25 * pow(h, 2) / a;
 
     // Задаем начальное поле температуры
-    for (i = 1; i <= N; ++i) {
+    for (i = 1; i <= N; ++i) 
+    {
         if (i == 1)
             T[i] = Tl;
         else if (i == N)
@@ -54,9 +56,10 @@ int main() {
             T[i] = T0;
     }
 
-    // Интегрирование уравнения теплопроводности
+    // Интегрируем уравнения теплопроводности
     time = 0;
-    while (time < t_end) {
+    while (time < t_end) 
+    {
         // Увеличиваем время
         time += tau;
 
@@ -69,7 +72,7 @@ int main() {
             T[i] = TT[i] + a * tau / pow(h, 2) * (TT[i + 1] - 2.0 * TT[i] + TT[i - 1]);
     }
 
-    // Вывод результата в файл res.txt
+    // Выводим результата в файл res.txt
     ofstream f("res.txt");
     f << "Толщина пластины L = " << L << endl;
     f << "Число узлов по пространственной координате N = " << N << endl;
@@ -84,10 +87,9 @@ int main() {
     f << "Температурное поле в момент времени t = " << t_end << endl;
     f.close();
 
-    // Вывод температурного поля в файл tempr.txt
+    // Выводим температурные поля в файл tempr.txt
     ofstream g("tempr.txt");
 
-    // Подписи столбцов
     g << "Шаг температуры" << setw(35) << "Температура узла" << endl;
     g << "---------------" << setw(20) << "-------------" << endl;
 
